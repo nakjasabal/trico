@@ -11,6 +11,7 @@ public class MainController {
 	public String home() {		
 		return "main";
 	}
+ 
 	@RequestMapping("/admin34/index.do")
 	public String sbadmin_index() {		
 		return "sbadmin/index";
