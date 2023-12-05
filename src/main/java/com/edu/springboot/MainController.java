@@ -6,12 +6,15 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.edu.springboot.mybatis.MyService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.Part;
@@ -20,11 +23,13 @@ import utils.MyFunctions;
 @Controller
 public class MainController {
 	
+	@Autowired
+	MyService dao;
+	
 	@RequestMapping("/")
 	public String home() {		
 		return "main";
-	}
- 
+	} 
 	@RequestMapping("/admin34/index.do")
 	public String sbadmin_index() {		
 		return "sbadmin/index";
@@ -34,7 +39,8 @@ public class MainController {
 		return "sbadmin/login";
 	}	
 	@RequestMapping("/admin34/print01.do")
-	public String sbadmin_print01() {		
+	public String sbadmin_print01(Model model) {
+		model.addAttribute("rows", dao.select());
 		return "sbadmin/print01";
 	}	
 	@RequestMapping("/admin34/onlyPrint.do")
@@ -68,12 +74,12 @@ public class MainController {
 		    //엑셀읽기
 /**
 롤재단 => getSheetAt(4)
-날짜 번호 상호 지종 규격 연수(R) 내용 도착지 번호 자차 용차 용차번호 기사님
-0	  1		2	3	 4		5	  6		7	   8	9	10	  11 	  12
+날짜 번호 상호 지종 규격 비고 톤수 내용 도착지 실출고 번호 1호 2호 자차 용차 용차번호  
+0   1	2	3	4	5  6   7  8	    9	10 11 12  13  14  15   
 -------------------------------------------------------------------------------------------
 길로틴 => getSheetAt(5)
-날짜 번호 상호 지종 규격 비고 톤수 내용 도착지 실출고 번호 1호 2호 자차 용차 용차번호 날짜
-0	  1		2	3	 4	  5	   6	7	   8	 9	   10   11  12  13   14   15		16
+날짜 번호 상호 지종 규격 연수(R) 내용 도착지 번호 자차 용차 용차번호 기사님
+0   1	2	3	4	5	  6	  7	   8  9  10  11    12
 */
 		    Workbook workbook = new XSSFWorkbook(uploadDir+ File.separator +savedFileName);
 		    Sheet worksSheet = workbook.getSheetAt(4);
@@ -84,10 +90,20 @@ public class MainController {
 		    			+row.getCell(2).getStringCellValue()+"="
 		    			+row.getCell(3).getStringCellValue()+"="
 		    			+row.getCell(4).getStringCellValue()+"="
-		    			+row.getCell(5).getStringCellValue()+"<br>");		    	
+		    			+row.getCell(5).getStringCellValue()+"="
+		    			+row.getCell(6).getNumericCellValue()+"="
+		    			+row.getCell(7).getStringCellValue()+"="
+		    			+row.getCell(8).getStringCellValue()+"="
+		    			+row.getCell(9).getNumericCellValue()+"="
+		    			+row.getCell(10).getStringCellValue()+"<br>");
+//		    			+row.getCell(11).getBooleanCellValue()+"="
+//		    			+row.getCell(12).getBooleanCellValue()+"="
+//		    			+row.getCell(13).getBooleanCellValue()+"="
+//		    			+row.getCell(14).getBooleanCellValue()+"<br>");		    	
 		    }
 		    
 		    model.addAttribute("sb", sb);
+		    workbook.close();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -97,60 +113,7 @@ public class MainController {
 		return "sbadmin/print01";
 	}	
  
-	/*********************************************************************/
-	
-	@GetMapping("/admin34/buttons.do")
-	public String sbadmin_buttons() {		
-		return "sbadmin/buttons";
-	}
-	@GetMapping("/admin34/cards.do")
-	public String sbadmin_cards() {		
-		return "sbadmin/cards";
-	}
-	@GetMapping("/admin34/utilities-color.do")
-	public String sbadmin_utilities_color() {		
-		return "sbadmin/utilities-color";
-	}
-	@GetMapping("/admin34/utilities-border.do")
-	public String sbadmin_utilities_border() {		
-		return "sbadmin/utilities-border";
-	}
-	@GetMapping("/admin34/utilities-animation.do")
-	public String sbadmin_utilities_animation() {		
-		return "sbadmin/utilities-animation";
-	}
-	@GetMapping("/admin34/utilities-other.do")
-	public String sbadmin_utilities_other() {		
-		return "sbadmin/utilities-other";
-	}
-	@GetMapping("/admin34/register.do")
-	public String sbadmin_register() {		
-		return "sbadmin/register";
-	}
-	@GetMapping("/admin34/forgot-password.do")
-	public String sbadmin_forgot_password() {		
-		return "sbadmin/forgot-password";
-	}
-	@GetMapping("/admin34/404.do")
-	public String sbadmin_404() {		
-		return "sbadmin/404";
-	}
-	@GetMapping("/admin34/blank.do")
-	public String sbadmin_blank() {		
-		return "sbadmin/blank";
-	}
-	@GetMapping("/admin34/charts.do")
-	public String sbadmin_charts() {		
-		return "sbadmin/charts";
-	}
-	@GetMapping("/admin34/tables.do")
-	public String sbadmin_tables() {		
-		return "sbadmin/tables";
-	}
-
-
-
-
+	 
 
 
 

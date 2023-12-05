@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TricoPaper01ApplicationTests {
+class _TricoPaper01ApplicationTests {
 
 	@Test
 	void contextLoads() {

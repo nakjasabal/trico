@@ -44,6 +44,10 @@ dependencies {
 	//Excel
 	implementation 'org.apache.poi:poi:5.2.5'
 	implementation 'org.apache.poi:poi-ooxml:5.2.5'
+	//MariaDB, Mybatis	
+	implementation 'org.mariadb.jdbc:mariadb-java-client:3.3.1'	
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.2'
 }
 
 tasks.named('test') {

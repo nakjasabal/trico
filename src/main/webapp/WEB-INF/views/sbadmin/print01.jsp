@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>    
 <%@ include file="/admin/header.jsp" %>
 <body id="page-top">
     <!-- Page Wrapper -->
@@ -48,6 +49,11 @@ function validateForm(form) {
 	    		<li>저장된파일명:${savedFileName}</li>
 	    	</ul>
 	    	<p>${sb}</p>
+	    </div>
+	    <div>
+	    <c:forEach items="${rows}" var="row">
+	    	<li>${row.idx} : ${row.name}</li>
+	    </c:forEach>
 	    </div>
     </div>
 

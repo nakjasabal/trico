@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.edu.springboot.mybatis.MyService"> 
+ 	
+	<select id="select" 
+		parameterType="com.edu.springboot.mybatis.CommonDTO" 
+		resultType="com.edu.springboot.mybatis.CommonDTO"> 
+		select * from tb01 order by idx desc
+	</select>
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	<!-- <insert id="insert" 
+		parameterType="com.edu.springboot.jdbc.MemberDTO"> 
+		insert into member (id, pass, name) values 
+			(#{id}, #{pass}, #{name})
+	</insert> 
+	<select id="selectOne" 
+		parameterType="com.edu.springboot.jdbc.MemberDTO"
+		resultType="com.edu.springboot.jdbc.MemberDTO"> 
+		select * from member where id=#{id}
+	</select>	
+	<update id="update" 
+		parameterType="com.edu.springboot.jdbc.MemberDTO"> 
+		update member set pass=#{pass}, name=#{name} 
+		where id=#{id}
+	</update> 
+	<delete id="delete" 
+		parameterType="com.edu.springboot.jdbc.MemberDTO"> 
+		delete from member where id=#{id}
+	</delete>	 -->
+</mapper>
