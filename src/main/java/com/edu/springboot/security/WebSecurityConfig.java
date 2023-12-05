@@ -19,6 +19,9 @@ public class WebSecurityConfig {
 	@Autowired
 	public MyAuthFailureHandler myAuthFailureHandler;
 
+	/* 
+	차후 여기에 있는 모든 주석을 다 풀면 됨.  
+	*/
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) 
     		throws Exception {
@@ -26,27 +29,27 @@ public class WebSecurityConfig {
             .cors((cors) -> cors.disable())
             .authorizeHttpRequests(request -> request
                 .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-                .requestMatchers("/").permitAll()
-                .requestMatchers("/admin34/login.do").permitAll()
+                .requestMatchers("/**").permitAll()
+//                .requestMatchers("/admin34/login.do").permitAll()
                 .requestMatchers("/css/**","/js/**","/images/**","/sbadmin/**").permitAll()                
-                .requestMatchers("/xyz/**").hasAnyRole("USER", "ADMIN")
-                .requestMatchers("/admin34/**").hasRole("ADMIN")
+                .requestMatchers("/xxxxxxxxxxxxxx/**").hasAnyRole("USER", "ADMIN")
+//                .requestMatchers("/admin34/**").hasRole("ADMIN")
                 .anyRequest().authenticated()	// 어떠한 요청이라도 인증필요
             );        
         http.formLogin((formLogin) -> formLogin
-        		.loginPage("/admin34/login.do") 		// default : /login
-    	        .loginProcessingUrl("/admin34/loginAction.do")
-    	        .defaultSuccessUrl("/admin34/index.do")
-    	        .failureHandler(myAuthFailureHandler)
-    	        .usernameParameter("admin_id")		// default : username
-    	        .passwordParameter("admin_pass") 	// default : password
+//        		.loginPage("/admin34/login.do") 		// default : /login
+//    	        .loginProcessingUrl("/admin34/loginAction.do")
+//    	        .defaultSuccessUrl("/admin34/index.do")
+//    	        .failureHandler(myAuthFailureHandler)
+//    	        .usernameParameter("admin_id")		// default : username
+//    	        .passwordParameter("admin_pass") 	// default : password
         		.permitAll());
         http.logout((logout) -> logout
-        		.logoutUrl("/admin34/logout.do") 		// default : /logout
-    	        .logoutSuccessUrl("/")
+//        		.logoutUrl("/admin34/logout.do") 		// default : /logout
+//    	        .logoutSuccessUrl("/")
         		.permitAll());
-        http.exceptionHandling((expHandling) -> expHandling
-        		.accessDeniedPage("/admin34/login.do"));
+//        http.exceptionHandling((expHandling) -> expHandling
+//        		.accessDeniedPage("/admin34/login.do"));
         
         return http.build();
     }
@@ -54,9 +57,9 @@ public class WebSecurityConfig {
 	@Bean
 	public UserDetailsService users() {
 		UserDetails user = User.builder()
-				.username("user")
+				.username("nakja")
 				.password(passwordEncoder().encode("1234"))
-				.roles("USER")   // ROLE_USER 에서 ROLE_는 자동으로 붙는다.
+				.roles("USER")
 				.build();
 		UserDetails admin = User.builder()
 				.username("admin")
