@@ -28,20 +28,20 @@
     </div>
     <!-- 단독메뉴 -->
 	<li class="nav-item">
-		<a class="nav-link" href="#">
-		<i class="fas fa-fw fa-chart-area"></i><span>단독메뉴</span></a>
+		<a class="nav-link" href="print01.do">
+		<i class="fas fa-fw fa-chart-area"></i><span>프린트테스트</span></a>
 	</li>
 	<!--Collapse 메뉴 -->
 	<li class="nav-item">
 	    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#YuGyeom01"
 	        aria-expanded="true" aria-controls="YuGyeom01">
 	        <i class="fas fa-fw fa-cog"></i>
-	        <span>대메뉴</span>
+	        <span>펼침메뉴</span>
 	    </a>
 	    <div id="YuGyeom01" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
 	        <div class="bg-white py-2 collapse-inner rounded">
 	            <a class="collapse-item" href="#">세부메뉴1</a>
-	            <a class="collapse-item" href="#">세부메뉴</a>
+	            <a class="collapse-item" href="#">세부메뉴2</a>
 	        </div>
 	    </div>
 	</li>
