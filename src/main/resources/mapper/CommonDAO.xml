@@ -11,25 +11,31 @@
 		resultType="com.edu.springboot.mybatis.CommonDTO"> 
 		select * from tb01 order by idx desc
 	</select>
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	<!-- <insert id="insert" 
-		parameterType="com.edu.springboot.jdbc.MemberDTO"> 
-		insert into member (id, pass, name) values 
-			(#{id}, #{pass}, #{name})
-	</insert> 
+	<insert id="insert" 
+		parameterType="com.edu.springboot.mybatis.CommonDTO"> 
+		insert into read_excel (col00,col01,col02,col03,col04,
+			col05,col06,col07,col08,col09,col10,col11,col12,col13,
+			col14,flag) 
+		values (
+			#{col00},#{col01},#{col02},#{col03},#{col04},
+			#{col05},#{col06},#{col07},#{col08},#{col09},
+			#{col10},#{col11},#{col12},#{col13},#{col14},#{flag}
+		)
+	</insert>
+	<select id="selectExcel" 
+		parameterType="com.edu.springboot.mybatis.CommonDTO" 
+		resultType="com.edu.springboot.mybatis.CommonDTO"> 
+		select * from read_excel order by idx asc
+	</select>
 	<select id="selectOne" 
-		parameterType="com.edu.springboot.jdbc.MemberDTO"
-		resultType="com.edu.springboot.jdbc.MemberDTO"> 
-		select * from member where id=#{id}
+		parameterType="com.edu.springboot.mybatis.CommonDTO"
+		resultType="com.edu.springboot.mybatis.CommonDTO"> 
+		select * from read_excel where idx=#{idx}
 	</select>	
+	
+	 
+	 
+	<!-- 
 	<update id="update" 
 		parameterType="com.edu.springboot.jdbc.MemberDTO"> 
 		update member set pass=#{pass}, name=#{name} 

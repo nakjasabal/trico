@@ -29,7 +29,11 @@
     <!-- 단독메뉴 -->
 	<li class="nav-item">
 		<a class="nav-link" href="print01.do">
-		<i class="fas fa-fw fa-chart-area"></i><span>프린트테스트</span></a>
+		<i class="fas fa-fw fa-chart-area"></i><span>엑셀파일업로드</span></a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="print02.do">
+		<i class="fas fa-fw fa-chart-area"></i><span>업로드성공목록</span></a>
 	</li>
 	<!--Collapse 메뉴 -->
 	<li class="nav-item">

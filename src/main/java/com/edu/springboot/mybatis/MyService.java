@@ -8,15 +8,11 @@ import org.apache.ibatis.annotations.Mapper;
 public interface MyService {
 	
 	public List<CommonDTO> select();
+	public int insert(CommonDTO commonDTO);
+	public List<CommonDTO> selectExcel();
+	public CommonDTO selectOne(CommonDTO commonDTO);
 	
 	
-	
-	
-	
-	
-	
-//	public int insert(CommonDTO memberDTO);
-//	public CommonDTO selectOne(CommonDTO memberDTO);
-//	public int update(CommonDTO memberDTO);
-//	public int delete(CommonDTO memberDTO);
+//	public int update(CommonDTO commonDTO);
+//	public int delete(CommonDTO commonDTO);
 }
