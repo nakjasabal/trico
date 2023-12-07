@@ -58,6 +58,7 @@ ALTER TABLE `read_excel`
 	ADD COLUMN `etc03` VARCHAR(50) NULL DEFAULT NULL AFTER `etc02`;
 
 
-
+ALTER TABLE `read_excel`
+	ADD COLUMN `gubun` ENUM('roll','gil') NULL DEFAULT 'roll' AFTER `flag`;
 
 

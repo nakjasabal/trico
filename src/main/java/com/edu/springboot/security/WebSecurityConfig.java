@@ -32,7 +32,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/**").permitAll()
 //                .requestMatchers("/admin34/login.do").permitAll()
                 .requestMatchers("/css/**","/js/**","/images/**","/sbadmin/**").permitAll()                
-                .requestMatchers("/xxxxxxxxxxxxxx/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers("/xxx/**").hasAnyRole("USER", "ADMIN")
 //                .requestMatchers("/admin34/**").hasRole("ADMIN")
                 .anyRequest().authenticated()	// 어떠한 요청이라도 인증필요
             );        

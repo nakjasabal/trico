@@ -83,6 +83,9 @@ function loginValidate(){
     <button type="submit" class="btn btn-primary btn-user btn-block">
         Login
     </button>
+    <button type="button" class="btn btn-info btn-user btn-block" onclick="location.href='index.do';">
+        바로들어가기
+    </button>
     <!-- <hr>
     <a href="index.do" class="btn btn-google btn-user btn-block">
         <i class="fab fa-google fa-fw"></i> Login with Google

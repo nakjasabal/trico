@@ -15,16 +15,17 @@
 		parameterType="com.edu.springboot.mybatis.CommonDTO"> 
 		INSERT INTO read_excel (col00,col01,col02,col03,col04,
 			col05,col06,col07,col08,col09,col10,col11,col12,col13,
-			col14,flag) 
+			col14,flag,gubun) 
 		VALUES (
 			#{col00},#{col01},#{col02},#{col03},#{col04},
 			#{col05},#{col06},#{col07},#{col08},#{col09},
-			#{col10},#{col11},#{col12},#{col13},#{col14},#{flag}
+			#{col10},#{col11},#{col12},#{col13},#{col14},#{flag},#{gubun}
 		)
 	</insert>
 	<select id="selectExcel"
 		resultType="com.edu.springboot.mybatis.CommonDTO"> 
-		SELECT * FROM read_excel WHERE flag=#{param1} ORDER BY idx ASC
+		SELECT * FROM read_excel WHERE flag=#{param1} and gubun=#{param2} 
+		ORDER BY idx ASC
 	</select>
 	<select id="selectOne" 
 		parameterType="com.edu.springboot.mybatis.CommonDTO"

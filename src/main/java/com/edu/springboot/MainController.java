@@ -3,6 +3,7 @@ package com.edu.springboot;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,10 +52,9 @@ public class MainController {
 		model.addAttribute("rows", dao.select());
 		return "sbadmin/print01";
 	}	
-	//DB에 등록된 엑셀 내용을 리스트로 출력
+	//DB에 등록된 엑셀 내용을 리스트로 출력 - 롤제단
 	/**
-	flag를 중복 제거해서 가져온 후 가장 최근에 올린걸 목록으로 출력해야 함. 
-	
+	flag를 중복 제거해서 가져온 후 가장 최근에 올린걸 목록으로 출력해야 함.	
 	 */
 	@RequestMapping("/admin34/print02.do")
 	public String sbadmin_print02(Model model, HttpServletRequest req) {
@@ -66,18 +66,51 @@ public class MainController {
 //		System.out.println("flagList="+ flagList);
 		model.addAttribute("flagList", flagList);
 				
-		if(flagNum==null || flagNum.equals("")) {
-			System.out.println("출력flag1="+ flagList.get(0).getFlag());
-			//가장 최근에 등록한 내역을 가져온다. 
-			model.addAttribute("rows", dao.selectExcel(flagList.get(0).getFlag()));
+		try {
+			if(flagNum==null || flagNum.equals("")) {
+				System.out.println("출력flag1="+ flagList.get(0).getFlag());
+				//가장 최근에 등록한 내역을 가져온다. 
+				model.addAttribute("rows", dao.selectExcel(flagList.get(0).getFlag(),"roll"));
+			}
+			else {
+				System.out.println("출력flag2="+ flagNum);
+				//파라미터에서 선택한 내역을 가져온다.
+				model.addAttribute("rows", dao.selectExcel(flagNum,"roll"));
+			}
 		}
-		else {
-			System.out.println("출력flag2="+ flagNum);
-			//파라미터에서 선택한 내역을 가져온다.
-			model.addAttribute("rows", dao.selectExcel(flagNum));
+		catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 		return "sbadmin/print02";
+	}
+	@RequestMapping("/admin34/print03.do")
+	public String sbadmin_print03(Model model, HttpServletRequest req) {
+		//파라미터
+		String flagNum = req.getParameter("flagNum");
+		
+		//입력된 데이터 중 flag(등록한시각)를 중복제거한 후 인출한다. 
+		List<CommonDTO> flagList = dao.groupByFlag();
+//		System.out.println("flagList="+ flagList);
+		model.addAttribute("flagList", flagList);
+		
+		try {
+			if(flagNum==null || flagNum.equals("")) {
+				//System.out.println("출력flag1="+ flagList.get(0).getFlag());
+				//가장 최근에 등록한 내역을 가져온다. 
+				model.addAttribute("rows", dao.selectExcel(flagList.get(0).getFlag(),"gil"));
+			}
+			else {
+				//System.out.println("출력flag2="+ flagNum);
+				//파라미터에서 선택한 내역을 가져온다.
+				model.addAttribute("rows", dao.selectExcel(flagNum,"gil"));
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "sbadmin/print03";
 	}
 	//프린트 팝업창
 	@RequestMapping("/admin34/onlyPrint.do")
@@ -147,17 +180,14 @@ public class MainController {
 /**
 롤재단 => getSheetAt(4)
 날짜 번호 상호 지종 규격 비고 톤수 내용 도착지 실출고 번호 1호 2호 자차 용차 용차번호  
-0    1    2    3    4    5    6     7   8       9     10   11  12  13   14   15   
--------------------------------------------------------------------------------------------
-길로틴 => getSheetAt(5)
-날짜 번호 상호 지종 규격 연수(R) 내용 도착지 번호 자차 용차 용차번호 기사님
-0    1    2	   3    4    5       6     7     8     9   10    11       12
+0    1    2    3    4    5    6     7   8       9     10   11  12  13   14   15
 */
-		    StringBuffer sb = new StringBuffer();
+		    //StringBuffer sb = new StringBuffer();
 		    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		    Calendar calendar = Calendar.getInstance();
 		    String strToday = sdf.format(calendar.getTime());
 		    Workbook workbook = new XSSFWorkbook(uploadDir+ File.separator +savedFileName);
+		    //롤제단
 		    Sheet worksSheet = workbook.getSheetAt(4);
 		    for(int i=1 ; i<worksSheet.getPhysicalNumberOfRows() ; i++) {
 		    	//레코드
@@ -201,14 +231,68 @@ public class MainController {
 		    	commonDTO.setCol12(col12);
 		    	commonDTO.setCol13(col13);
 		    	commonDTO.setCol14(col14);
-		    	//commonDTO.setCol15(col15);
 		    	commonDTO.setFlag(strToday);
+		    	commonDTO.setGubun("roll");
+		    	
+		    	//insert
+		    	if(!col01.equals("") && !col02.equals(""))
+		    		dao.insert(commonDTO);
+		    }
+
+/*
+길로틴 => getSheetAt(5)
+날짜 번호 상호 지종 규격 연수(R) 내용 도착지 번호 자차 용차 용차번호 기사님
+0   1   2   3   4   5    6    7    8  9  10   11    12
+ */
+		    //길로틴
+		    Sheet worksSheet2 = workbook.getSheetAt(5);
+		    for(int i=1 ; i<worksSheet2.getPhysicalNumberOfRows() ; i++) {
+		    	//레코드
+		    	Row row = worksSheet2.getRow(i);
+		    	//데이터정리
+		    	Date date = row.getCell(0).getDateCellValue();
+		    	String col00 = (date==null) ? "" : date.toString();
+		    	String col01 = row.getCell(1).getStringCellValue();
+		    	String col02 = row.getCell(2).getStringCellValue();
+		    	String col03 = row.getCell(3).getStringCellValue();
+		    	String col04 = row.getCell(4).getStringCellValue();
+		    	String col05 = Double.toString(row.getCell(5).getNumericCellValue());
+		    	String col06 = row.getCell(6).getStringCellValue();
+		    	String col07 = row.getCell(7).getStringCellValue();
+		    	String col08 = row.getCell(8).getStringCellValue();
+		    	String col09 = Boolean.toString(row.getCell(9).getBooleanCellValue());
+		    	String col10 = Boolean.toString(row.getCell(10).getBooleanCellValue());
+		    	String col11 = Double.toString(row.getCell(11).getNumericCellValue());
+		    	String col12 = row.getCell(12).getStringCellValue();
+		    	
+		    	//출력용 문자열 만들기
+//		    	sb.append(col00+"="+col01+"="+col02+"="+col03+"="+col04+"="+col05+"="
+//		    			+col06+"="+col07+"="+col08+"="+col09+"="+col10+"="+col11+"="
+//		    			+col12+"<br>");
+		    	
+		    	//DB저장을 위해 DTO에 저장
+		    	commonDTO.setCol00(col00);
+		    	commonDTO.setCol01(col01);
+		    	commonDTO.setCol02(col02);
+		    	commonDTO.setCol03(col03);
+		    	commonDTO.setCol04(col04);
+		    	commonDTO.setCol05(col05);
+		    	commonDTO.setCol06(col06);
+		    	commonDTO.setCol07(col07);
+		    	commonDTO.setCol08(col08);
+		    	commonDTO.setCol09(col09);
+		    	commonDTO.setCol10(col10);
+		    	commonDTO.setCol11(col11);
+		    	commonDTO.setCol12(col12);
+		    	commonDTO.setFlag(strToday);
+		    	commonDTO.setGubun("gil");
 		    	
 		    	//insert 
-		    	dao.insert(commonDTO);
+		    	if(!col01.equals("") && !col02.equals(""))
+		    		dao.insert(commonDTO);
 		    }
 		    
-		    model.addAttribute("sb", sb);
+		    //model.addAttribute("sb", sb);
 		    workbook.close();
 		}
 		catch (Exception e) {

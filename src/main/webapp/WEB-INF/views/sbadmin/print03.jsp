@@ -23,7 +23,7 @@
 <div class="container-fluid">
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">
-    	롤제단 출고목록
+    	길로틴 출고목록
     </h1>
     
     <div class="card shadow mb-4">
@@ -76,8 +76,8 @@ function printOpen(idx) {
     <table class="table table-bordered" id="myTable">
     <colgroup>
     	<col width="*" /><col width="*" /><col width="*" /><col width="*" /><col width="*" />
-    	<col width="*" /><col width="*" /><col width="*" /><col width="80px" />
-    	<col width="*" />
+    	<col width="*" /><col width="*" /><col width="*" /><col width="*" /><col width="80px" />
+    	<col width="*" /><col width="*" />
     </colgroup>
     <tr>
 	    <th>날짜</th>
@@ -85,17 +85,11 @@ function printOpen(idx) {
 	    <th>상호</th> 
 	    <th>지종</th> 
 	    <th>규격</th> 
-	    <!-- <th>비고</th>  -->
-	    <th>톤수</th> 
-	    <th>내용</th> 
+	    <th>연수(R)</th> 
+	    <th>재단사이즈</th> 
+	    <th>제지사</th> 
+	    <th>품명</th> 
 	    <th>도착지</th> 
-	    <th>실출고</th> 
-	    <!-- <th>번호</th> 
-	    <th>1호</th> 
-	    <th>2호</th> 
-	    <th>자차</th> 
-	    <th>용차</th> 
-	    <th>용차번호</th> -->
 	    <th>입력</th> 
 	    <th>출력</th>
 	</tr>	  
@@ -107,21 +101,16 @@ function printOpen(idx) {
     		<td>${row.col02}</td>
     		<td>${row.col03}</td>
     		<td>${row.col04}</td>
-    		<%-- <td>${row.col05}</td> --%>
     		<td>${row.col06}</td>
     		<td>${row.col07}</td>
     		<td>${row.col08}</td>
     		<td>${row.col09}</td>
-    		<%-- <td>${row.col10}</td>
+    		<td>${row.col10}</td>
     		<td>${row.col11}</td>
-    		<td>${row.col12}</td>
-    		<td>${row.col13}</td>
-    		<td>${row.col14}</td>
-    		<td>${row.col15}</td> --%>
     		<td>
     			수량: <input type="text" id="etc01_${row.idx}" value="${row.etc01}" style="width:60px;" />
     		</td>
-    		<td><button type='button' onclick="printOpen('${row.idx}');" class="btn btn-danger" style="width:60px;">인쇄</button></td>
+    		<td><button type='button' onclick="printOpen('${row.idx}');" class="btn btn-warning" style="width:60px;">인쇄</button></td>
     	</tr>
     	</c:if>
     </c:forEach>

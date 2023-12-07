@@ -10,7 +10,7 @@ public interface MyService {
 	
 	public List<CommonDTO> select();
 	public int insert(CommonDTO commonDTO);
-	public List<CommonDTO> selectExcel(String flag);
+	public List<CommonDTO> selectExcel(String flag, String gubun);
 	public CommonDTO selectOne(CommonDTO commonDTO);
 	public List<CommonDTO> groupByFlag();
 	public int dataUpdate(Map<String, String> maps);

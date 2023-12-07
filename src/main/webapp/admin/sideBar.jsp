@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>    
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
@@ -33,7 +34,11 @@
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" href="print02.do">
-		<i class="fas fa-fw fa-chart-area"></i><span>출고목록</span></a>
+		<i class="fas fa-fw fa-cog"></i><span>출고목록(롤제단)</span></a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" href="print03.do">
+		<i class="fas fa-fw fa-wrench"></i><span>출고목록(길로틴)</span></a>
 	</li>
 	<!--Collapse 메뉴 -->
 	<li class="nav-item">
@@ -50,6 +55,9 @@
 	    </div>
 	</li>
 <!-- #### 낙자 메뉴 추가e #### -->
+
+<!-- #### 사용자 숨김 부분s #### -->
+<c:if test="${param.side ne null}">
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -150,5 +158,6 @@
                 <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
                 <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
             </div>
-
-        </ul>
+</c:if>   
+<!-- #### 사용자 숨김 부분e #### -->
+</ul>   
