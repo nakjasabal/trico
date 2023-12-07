@@ -21,7 +21,7 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="/sbadmin/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/sbadmin/css/sb-admin-2.css" rel="stylesheet">
 
 </head>
 
@@ -83,21 +83,21 @@ function loginValidate(){
     <button type="submit" class="btn btn-primary btn-user btn-block">
         Login
     </button>
-    <hr>
+    <!-- <hr>
     <a href="index.do" class="btn btn-google btn-user btn-block">
         <i class="fab fa-google fa-fw"></i> Login with Google
     </a>
     <a href="index.do" class="btn btn-facebook btn-user btn-block">
         <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
-    </a>
+    </a> -->
 </form>
-                                    <hr>
+                                    <!-- <hr>
                                     <div class="text-center">
                                         <a class="small" href="forgot-password.do">Forgot Password?</a>
                                     </div>
                                     <div class="text-center">
                                         <a class="small" href="register.do">Create an Account!</a>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>

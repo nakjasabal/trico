@@ -23,6 +23,9 @@ public class CommonDTO {
     private String col13;
     private String col14;
     private String col15;
+    private String etc01;
+    private String etc02;
+    private String etc03;
     private String flag;
 }
  

@@ -1,6 +1,7 @@
 package com.edu.springboot.mybatis;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
  
@@ -9,8 +10,10 @@ public interface MyService {
 	
 	public List<CommonDTO> select();
 	public int insert(CommonDTO commonDTO);
-	public List<CommonDTO> selectExcel();
+	public List<CommonDTO> selectExcel(String flag);
 	public CommonDTO selectOne(CommonDTO commonDTO);
+	public List<CommonDTO> groupByFlag();
+	public int dataUpdate(Map<String, String> maps);
 	
 	
 //	public int update(CommonDTO commonDTO);

@@ -96,7 +96,7 @@ table td{border:5px solid black;font-size: 2.5em;text-align: center;
 			</tr>
 			<tr>
 				<td>수량</td>
-				<td>???</td>
+				<td>${row.etc01}</td>
 			</tr>
 			<tr>
 				<td>품명</td>

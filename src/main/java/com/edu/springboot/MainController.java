@@ -4,6 +4,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Row;
@@ -16,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.edu.springboot.mybatis.CommonDTO;
@@ -50,9 +52,31 @@ public class MainController {
 		return "sbadmin/print01";
 	}	
 	//DB에 등록된 엑셀 내용을 리스트로 출력
+	/**
+	flag를 중복 제거해서 가져온 후 가장 최근에 올린걸 목록으로 출력해야 함. 
+	
+	 */
 	@RequestMapping("/admin34/print02.do")
-	public String sbadmin_print02(Model model) {		
-		model.addAttribute("rows", dao.selectExcel());
+	public String sbadmin_print02(Model model, HttpServletRequest req) {
+		//파라미터
+		String flagNum = req.getParameter("flagNum");
+		
+		//입력된 데이터 중 flag(등록한시각)를 중복제거한 후 인출한다. 
+		List<CommonDTO> flagList = dao.groupByFlag();
+//		System.out.println("flagList="+ flagList);
+		model.addAttribute("flagList", flagList);
+				
+		if(flagNum==null || flagNum.equals("")) {
+			System.out.println("출력flag1="+ flagList.get(0).getFlag());
+			//가장 최근에 등록한 내역을 가져온다. 
+			model.addAttribute("rows", dao.selectExcel(flagList.get(0).getFlag()));
+		}
+		else {
+			System.out.println("출력flag2="+ flagNum);
+			//파라미터에서 선택한 내역을 가져온다.
+			model.addAttribute("rows", dao.selectExcel(flagNum));
+		}
+		
 		return "sbadmin/print02";
 	}
 	//프린트 팝업창
@@ -63,7 +87,7 @@ public class MainController {
 		지종 : 지종
 		평량 : 규격 - 첫번째
 		규격 : 규격 - 두번째 
-		수량 : ??
+		수량 : 직접입력
 		품명 : ??
 		입고처 : 도착지
 		출고일 : 날짜 
@@ -82,6 +106,20 @@ public class MainController {
 		mv.setViewName("sbadmin/onlyPrint");
 		return mv;
 	}	
+	@RequestMapping("/admin34/directInput.do")
+	@ResponseBody
+	public String directInput(HttpServletRequest req) {
+		
+		String idx = req.getParameter("idx");
+		String etc01 = req.getParameter("etc01");
+		
+		Map<String, String> maps = new HashMap<>();
+		maps.put("idx", idx);
+		maps.put("etc01", etc01);
+		
+		int result = dao.dataUpdate(maps);		
+		return "update결과:"+ result;
+	}
 	@PostMapping("/admin34/uploadProcess.do")
 	public String uploadProcess(HttpServletRequest req, Model model, CommonDTO commonDTO) {		
 		try {

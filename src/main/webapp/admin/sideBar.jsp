@@ -33,7 +33,7 @@
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" href="print02.do">
-		<i class="fas fa-fw fa-chart-area"></i><span>업로드성공목록</span></a>
+		<i class="fas fa-fw fa-chart-area"></i><span>출고목록</span></a>
 	</li>
 	<!--Collapse 메뉴 -->
 	<li class="nav-item">
