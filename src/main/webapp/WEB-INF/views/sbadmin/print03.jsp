@@ -58,7 +58,7 @@ function printOpen(idx) {
 		},
 		success : function(resData){
 			console.log(resData);
-			open('onlyPrint.do?idx='+idx,'print','left=0,top=0,width=1000,height=900');
+			open('onlyPrint03.do?idx='+idx,'print','left=0,top=0,width=700,height=900');
 		},		 
 		error : function(errData){ 
 			console.log(errData.state, errData.statusText); 
@@ -73,12 +73,17 @@ function printOpen(idx) {
 	<input type="hidden" name="etc02" id="etc02" /><!-- 미정.. -->
 	<input type="hidden" name="etc03" id="etc03" /><!-- 미정.. -->
 </form>		
-    <table class="table table-bordered" id="myTable">
+    <table class="table table-bordered table-hover" id="myTable">
     <colgroup>
     	<col width="*" /><col width="*" /><col width="*" /><col width="*" /><col width="*" />
-    	<col width="*" /><col width="*" /><col width="*" /><col width="*" /><col width="80px" />
-    	<col width="*" /><col width="*" />
+    	<col width="*" /><col width="*" /><col width="*" /><col width="*" /><col width="*" />
+    	<col width="120px" /><col width="60px" />
     </colgroup>
+<!--  
+길로틴 => getSheetAt(5)
+날짜 번호 상호 지종 규격 연수(R) 재단사이즈 제지사 품명 도착지 /까지/ 번호 자차 용차 용차번호 기사님												
+0    1    2    3    4    5       6          7      8    9      /까지/ 10   11    12
+-->
     <tr>
 	    <th>날짜</th>
 	    <th>번호</th> 
@@ -101,14 +106,13 @@ function printOpen(idx) {
     		<td>${row.col02}</td>
     		<td>${row.col03}</td>
     		<td>${row.col04}</td>
+    		<td>${row.col05}</td>
     		<td>${row.col06}</td>
     		<td>${row.col07}</td>
     		<td>${row.col08}</td>
     		<td>${row.col09}</td>
-    		<td>${row.col10}</td>
-    		<td>${row.col11}</td>
     		<td>
-    			수량: <input type="text" id="etc01_${row.idx}" value="${row.etc01}" style="width:60px;" />
+    			수량: <input type="text" id="etc01_${row.idx}" value="${row.etc01}" style="width:50px;" />
     		</td>
     		<td><button type='button' onclick="printOpen('${row.idx}');" class="btn btn-warning" style="width:60px;">인쇄</button></td>
     	</tr>

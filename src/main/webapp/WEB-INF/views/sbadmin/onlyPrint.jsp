@@ -20,10 +20,10 @@ body {
 	min-height: 29.7cm;
 	padding: 2cm;
 	margin: 0 auto;
-	background:#eee;
+	background:#fff;
 }
 .subpage {
-	border: 2px red solid;
+	border: 2px white solid;
 	background:#fff;   
 	height: 257mm;
 }
@@ -57,12 +57,12 @@ table td{border:5px solid black;font-size: 2.4em;text-align: center;
 <%
 /**
 롤재단 => getSheetAt(4)
-날짜 번호 상호 지종 규격 비고 톤수 내용 도착지 실출고 번호 1호 2호 자차 용차 용차번호  
-0    1    2    3    4    5    6     7   8       9     10   11  12  13   14   15   
--------------------------------------------------------------------------------------------
+날짜 번호 상호 지종 규격 비고 톤수 사이즈및수량 제지 실출고 품명 도착지 번호 /까지/ 1호 2호 자차 용차 용차번호												
+0    1    2    3    4    5    6     7           8     9     10   11     12   /까지/ 13  14  15
+
 길로틴 => getSheetAt(5)
-날짜 번호 상호 지종 규격 연수(R) 내용 도착지 번호 자차 용차 용차번호 기사님
-0    1    2	   3    4    5       6     7     8     9   10    11       12
+날짜 번호 상호 지종 규격 연수(R) 재단사이즈 제지사 품명 도착지 /까지/ 번호 자차 용차 용차번호 기사님												
+0    1    2    3    4    5       6          7      8    9      /까지/ 10   11    12
 */
 %>    
 	<div class="page">
@@ -100,15 +100,15 @@ table td{border:5px solid black;font-size: 2.4em;text-align: center;
 			</tr>
 			<tr>
 				<td>품명</td>
-				<td>???</td>
+				<td>${otherInfo.productName}</td>
 			</tr>
 			<tr>
 				<td>입고처</td>
-				<td>${row.col08}</td>
+				<td>${otherInfo.arrivalName}</td>
 			</tr>
 			<tr>
 				<td>출고일</td>
-				<td>${row.col00}</td>
+				<td>${otherInfo.outDate}</td>
 			</tr>
 			<tr>
 				<td colspan='2'>
