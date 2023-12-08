@@ -223,23 +223,28 @@ public class MainController {
 	public String sbadmin_print02(Model model, HttpServletRequest req) {
 		//파라미터
 		String flagNum = req.getParameter("flagNum");
+		String searchNum = req.getParameter("searchNum");
+		//DTO에 저장
+		CommonDTO dto = new CommonDTO();		
+		dto.setGubun("roll");//롤제단
+		dto.setSearchNum(searchNum);
 		
 		//입력된 데이터 중 flag(등록한시각)를 중복제거한 후 인출한다. 
 		List<CommonDTO> flagList = dao.groupByFlag();
 //		System.out.println("flagList="+ flagList);
 		model.addAttribute("flagList", flagList);
 				
-		try {
+		try {	
 			if(flagNum==null || flagNum.equals("")) {
-				System.out.println("출력flag1="+ flagList.get(0).getFlag());
-				//가장 최근에 등록한 내역을 가져온다. 
-				model.addAttribute("rows", dao.selectExcel(flagList.get(0).getFlag(),"roll"));
+				//DTO에 저장 : 가장 최근에 등록한 내역
+				dto.setFlag(flagList.get(0).getFlag());
 			}
 			else {
-				System.out.println("출력flag2="+ flagNum);
-				//파라미터에서 선택한 내역을 가져온다.
-				model.addAttribute("rows", dao.selectExcel(flagNum,"roll"));
+				//DTO에 저장 : 파라미터에서 선택한 내역
+				dto.setFlag(flagNum);
 			}
+			System.out.println("dto="+ dto);
+			model.addAttribute("rows", dao.selectExcel(dto));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -251,23 +256,26 @@ public class MainController {
 	public String sbadmin_print03(Model model, HttpServletRequest req) {
 		//파라미터
 		String flagNum = req.getParameter("flagNum");
+		String searchNum = req.getParameter("searchNum");
+		//DTO에 저장
+		CommonDTO dto = new CommonDTO();		
+		dto.setGubun("gil");//길로틴
+		dto.setSearchNum(searchNum);
 		
 		//입력된 데이터 중 flag(등록한시각)를 중복제거한 후 인출한다. 
 		List<CommonDTO> flagList = dao.groupByFlag();
-//		System.out.println("flagList="+ flagList);
 		model.addAttribute("flagList", flagList);
 		
 		try {
 			if(flagNum==null || flagNum.equals("")) {
-				//System.out.println("출력flag1="+ flagList.get(0).getFlag());
-				//가장 최근에 등록한 내역을 가져온다. 
-				model.addAttribute("rows", dao.selectExcel(flagList.get(0).getFlag(),"gil"));
+				//DTO에 저장 : 가장 최근에 등록한 내역
+				dto.setFlag(flagList.get(0).getFlag());
 			}
 			else {
-				//System.out.println("출력flag2="+ flagNum);
-				//파라미터에서 선택한 내역을 가져온다.
-				model.addAttribute("rows", dao.selectExcel(flagNum,"gil"));
+				//DTO에 저장 : 파라미터에서 선택한 내역
+				dto.setFlag(flagNum);
 			}
+			model.addAttribute("rows", dao.selectExcel(dto));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -305,7 +313,6 @@ public class MainController {
 		//출고일
 		otherInfo.put("outDate", commonDTO.getCol09());
 		
-		
 		mv.addObject("otherInfo", otherInfo);
 		mv.setViewName("sbadmin/onlyPrint");
 		return mv;
@@ -340,7 +347,6 @@ public class MainController {
 		//출고일
 		otherInfo.put("outDate", commonDTO.getCol00());
 		
-		
 		mv.addObject("otherInfo", otherInfo);
 		mv.setViewName("sbadmin/onlyPrint");
 		return mv;
@@ -360,5 +366,4 @@ public class MainController {
 		return "update결과:"+ result;
 	}
 	
-
 }

@@ -28,5 +28,6 @@ public class CommonDTO {
     private String etc03;
     private String flag;
     private String gubun;
+    private String searchNum;
 }
  

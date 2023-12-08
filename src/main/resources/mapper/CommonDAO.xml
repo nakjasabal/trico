@@ -23,8 +23,12 @@
 		)
 	</insert>
 	<select id="selectExcel"
+		parameterType="com.edu.springboot.mybatis.CommonDTO"
 		resultType="com.edu.springboot.mybatis.CommonDTO"> 
-		SELECT * FROM read_excel WHERE flag=#{param1} and gubun=#{param2} 
+		SELECT * FROM read_excel WHERE flag=#{flag} AND gubun=#{gubun}
+		<if test="searchNum!=null and !searchNum.equals('')"> 
+			AND col01 LIKE CONCAT('%',#{searchNum},'%')  
+		</if>
 		ORDER BY idx ASC
 	</select>
 	<select id="selectOne" 
@@ -34,7 +38,7 @@
 	</select>	
 	<select id="groupByFlag"
 		resultType="com.edu.springboot.mybatis.CommonDTO"> 
-		SELECT flag FROM read_excel GROUP BY flag ORDER BY flag DESC
+		SELECT flag FROM read_excel GROUP BY flag ORDER BY flag DESC LIMIT 10
 	</select>	
 	<update id="dataUpdate" 
 		parameterType="map"> 

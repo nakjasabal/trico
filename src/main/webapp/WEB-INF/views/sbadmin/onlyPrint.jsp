@@ -96,7 +96,7 @@ table td{border:5px solid black;font-size: 2.4em;text-align: center;
 			</tr>
 			<tr>
 				<td>수량</td>
-				<td>${row.etc01}</td>
+				<td>${row.etc01}<c:if test="${not empty row.etc01}">R</c:if></td>
 			</tr>
 			<tr>
 				<td>품명</td>

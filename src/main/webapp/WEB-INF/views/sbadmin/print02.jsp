@@ -36,7 +36,6 @@
 	<ul class="pagination justify-content-end" style="margin:0 0 10px 0;">
 		<li class="page-item"><a class="page-link" href="#">Prev</a></li>
 		<c:forEach items="${flagList}" var="item" varStatus="loop">
-			
 			<li class="page-item"><a class="page-link" href="?flagNum=${item.flag}">${loop.count}</a></li>	
 		</c:forEach>
 		<li class="page-item"><a class="page-link" href="#">Next</a></li>
