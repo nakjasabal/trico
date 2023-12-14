@@ -48,8 +48,9 @@ body {
 }
 
 table{border:5px solid black;border-collapse: collapse;width: 100%;}
-table td{border:5px solid black;font-size: 2.4em;text-align: center;
-  padding: 18px 15px;font-family: 궁서체;}
+table td{border:5px solid black;font-size: 2.8em;text-align: center;
+  padding:13px 10px;font-family: 궁서체;}
+table td#ipgo{font-size:3.8em;font-weight:bold;}
 </style>
 </head>
 <body onclick="print();" style="cursor:pointer;">
@@ -66,10 +67,10 @@ table td{border:5px solid black;font-size: 2.4em;text-align: center;
 */
 %>    
 	<div class="page">
-		<div class="subpage">			
+		<div class="subpage">
 			<table>
 			<colgroup>
-				<col width="30%" />
+				<col width="26%" />
 				<col width="*" />
 			</colgroup>
 			<tr>
@@ -104,7 +105,13 @@ table td{border:5px solid black;font-size: 2.4em;text-align: center;
 			</tr>
 			<tr>
 				<td>입고처</td>
-				<td>${otherInfo.arrivalName}</td>
+				<td id="ipgo">
+				<c:forTokens items="${otherInfo.arrivalName}" delims="(" var="aName" varStatus="loop">
+					<c:if test="${loop.count eq 1}">
+						${aName}
+					</c:if>
+				</c:forTokens>				
+				</td>
 			</tr>
 			<tr>
 				<td>출고일</td>
