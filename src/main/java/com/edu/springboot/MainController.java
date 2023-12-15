@@ -41,7 +41,8 @@ public class MainController {
 	} 
 	//대쉬보드
 	@RequestMapping("/admin34/index.do")
-	public String sbadmin_index() {		
+	public String sbadmin_index(Model model) {
+		model.addAttribute("cnts", dao.mainCount());
 		return "sbadmin/index";
 	}
 	//로그인

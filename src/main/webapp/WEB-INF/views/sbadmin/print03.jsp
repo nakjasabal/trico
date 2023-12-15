@@ -19,6 +19,7 @@
 <style>
 #myTable {}
 #myTable th{text-align: center;vertical-align: middle;}
+span#red{color:red;}
 </style>
 <div class="container-fluid">
     <!-- Page Heading -->
@@ -28,7 +29,7 @@
     
     <div class="card shadow mb-4">
 		<div class="card-header py-3">
-		    <h6 class="m-0 font-weight-bold text-primary">가장 최근에 업로드한 Excel의 내용이 출력됩니다.</h6>
+		    <h6 class="m-0 font-weight-bold text-primary">Excel문서 하나당 <span id="red">페이지번호</span> 생성 / 라벨 팝업창의 아무곳이나 클릭하면 <span id="red">인쇄</span>됨 / 상단에서 번호 <span id="red">검색</span></h6>
 		</div>
 		<div class="card-body">     
 		
@@ -57,7 +58,7 @@ function printOpen(idx) {
 		},
 		success : function(resData){
 			console.log(resData);
-			open('onlyPrint03.do?idx='+idx,'print','left=0,top=0,width=700,height=900');
+			open('onlyPrint03.do?idx='+idx,'print','left=0,top=0,width=800,height=900');
 		},		 
 		error : function(errData){ 
 			console.log(errData.state, errData.statusText); 
@@ -113,7 +114,7 @@ function printOpen(idx) {
     		<td>
     			수량: <input type="text" id="etc01_${row.idx}" value="${row.etc01}" style="width:50px;" />
     		</td>
-    		<td><button type='button' onclick="printOpen('${row.idx}');" class="btn btn-warning" style="width:60px;">인쇄</button></td>
+    		<td><button type='button' onclick="printOpen('${row.idx}');" class="btn btn-warning" style="width:60px;">라벨</button></td>
     	</tr>
     	</c:if>
     </c:forEach>

@@ -32,12 +32,12 @@ function validateForm(form) {
 <div class="container-fluid">
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">
-    	엑셀 파일 업로드
+    	엑셀 파일업로드
     </h1>
     
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-		    <h6 class="m-0 font-weight-bold text-primary">구글 Sheet에서 다운로드 한 파일을 등록해주세요.</h6>
+		    <h6 class="m-0 font-weight-bold text-primary">구글 스프레드시트에서 다운로드 한 파일을 등록해주세요.</h6>
 		</div>
 		<div class="card-body">
 			<form name="fileForm" method="post" enctype="multipart/form-data"

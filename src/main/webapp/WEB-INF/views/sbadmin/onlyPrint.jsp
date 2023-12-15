@@ -52,7 +52,7 @@ table td{border:5px solid black;font-size: 2.4em;text-align: center;
   padding: 18px 15px;font-family: 궁서체;}
 </style>
 </head>
-<body>
+<body onclick="print();" style="cursor:pointer;">
 <!-- ############################################# -->
 <%
 /**

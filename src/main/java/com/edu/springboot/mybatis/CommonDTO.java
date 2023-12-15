@@ -29,5 +29,9 @@ public class CommonDTO {
     private String flag;
     private String gubun;
     private String searchNum;
+    
+    private String totalCnt;
+    private String rollCnt;
+    private String gilCnt;
 }
  

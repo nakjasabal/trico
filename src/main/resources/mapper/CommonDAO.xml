@@ -45,6 +45,14 @@
 		UPDATE read_excel SET etc01=#{etc01} 
 		WHERE idx=#{idx}
 	</update> 
+	<select id="mainCount"
+		resultType="com.edu.springboot.mybatis.CommonDTO"> 
+		SELECT 
+			COUNT(*) AS "totalCnt" ,
+			(SELECT COUNT(*) FROM read_excel WHERE gubun='roll') AS "rollCnt",
+			(SELECT COUNT(*) FROM read_excel WHERE gubun='gil') AS "gilCnt"
+		FROM read_excel
+	</select>	
 	
 	 
 	 

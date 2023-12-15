@@ -41,7 +41,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 전체출고목록</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">123,456</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${cnts.totalCnt}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -59,7 +59,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 롤제단</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">12,345</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${cnts.rollCnt}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -79,14 +79,14 @@
                                             	길로틴</div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">12,345</div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${cnts.gilCnt}</div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="progress progress-sm mr-2">
+                                                    <!-- <div class="progress progress-sm mr-2">
                                                         <div class="progress-bar bg-info" role="progressbar"
                                                             style="width: 50%" aria-valuenow="50" aria-valuemin="0"
                                                             aria-valuemax="100"></div>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -97,7 +97,56 @@
                                 </div>
                             </div>
                         </div>
-
+<script>
+function getToday(){
+	let date = new Date();
+	let year = date.getFullYear();
+	let month = ("0" + (1 + date.getMonth())).slice(-2);
+	let day = ("0" + date.getDate()).slice(-2);
+    return year + "-" + month + "-" + day;
+}
+window.onload = function() {
+	let divVisitCnt = document.getElementById("visitCnt");
+	//오늘 날짜 확인
+	console.log(getToday());
+	/*
+	1.생성된 스토리지가 있는지 확인
+	2.없다면 새로 생성.
+	3.있다면 오늘 날짜와 비교
+		날짜가 동일하면 return
+		날짜가 틀리면 하루가 지났으므로
+	*/
+	if (typeof(Storage) != undefined) {
+		//스토리지 가져오기. 만약 없다면 생성한다.  
+		let today = localStorage.getItem("today");
+		if (today == null) {
+			localStorage.setItem("today", getToday());        
+	    }
+		let localVisitCnt = localStorage.getItem("localVisitCnt");
+		if (localVisitCnt == null) {
+            localStorage.setItem("localVisitCnt", 1);
+        }
+		
+		//앞에서 생성한 혹은 이미 만들어진 스토리지를 가져온다. 
+		today = localStorage.getItem("today");
+		localVisitCnt = localStorage.getItem("localVisitCnt");
+		
+		//스토리지에 저장된 날짜와 현재날짜를 비교한다. 
+		if(getToday()!=today){
+			//날짜를 변경한다.
+			localStorage.setItem("today", getToday());  
+			//하루가 지났다면 1증가한다. 
+			localStorage.setItem("localVisitCnt", ++localVisitCnt);
+		}
+		
+		//화면에 표시한다. 
+		divVisitCnt.innerHTML = localVisitCnt;
+	}
+	else{
+		console.log("웹스토리지를 지원하지 않습니다");
+	}
+}
+</script>
                         <!-- Pending Requests Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-warning shadow h-100 py-2">
@@ -106,7 +155,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 접속횟수</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">100</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="visitCnt">0</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>

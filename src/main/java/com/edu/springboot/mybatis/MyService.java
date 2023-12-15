@@ -14,6 +14,7 @@ public interface MyService {
 	public CommonDTO selectOne(CommonDTO commonDTO);
 	public List<CommonDTO> groupByFlag();
 	public int dataUpdate(Map<String, String> maps);
+	public CommonDTO mainCount();
 	
 	
 //	public int update(CommonDTO commonDTO);

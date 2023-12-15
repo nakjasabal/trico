@@ -30,18 +30,18 @@
     <!-- 단독메뉴 -->
 	<li class="nav-item">
 		<a class="nav-link" href="print01.do">
-		<i class="fas fa-fw fa-chart-area"></i><span>엑셀파일업로드</span></a>
+		<i class="fas fa-fw fa-chart-area"></i><span>엑셀 파일업로드</span></a>
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" href="print02.do">
-		<i class="fas fa-fw fa-cog"></i><span>출고목록(롤제단)</span></a>
+		<i class="fas fa-fw fa-cog"></i><span>롤제단 출고목록</span></a>
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" href="print03.do">
-		<i class="fas fa-fw fa-wrench"></i><span>출고목록(길로틴)</span></a>
+		<i class="fas fa-fw fa-wrench"></i><span>길로틴 출고목록</span></a>
 	</li>
 	<!--Collapse 메뉴 -->
-	<li class="nav-item">
+	<!-- <li class="nav-item">
 	    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#YuGyeom01"
 	        aria-expanded="true" aria-controls="YuGyeom01">
 	        <i class="fas fa-fw fa-cog"></i>
@@ -53,7 +53,7 @@
 	            <a class="collapse-item" href="#">세부메뉴2</a>
 	        </div>
 	    </div>
-	</li>
+	</li> -->
 <!-- #### 낙자 메뉴 추가e #### -->
 
 <!-- #### 사용자 숨김 부분s #### -->
