@@ -2,6 +2,7 @@ package com.edu.springboot;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -58,7 +59,11 @@ public class MainController {
 	}	
 	//파일업로드 및 DB등록
 	@PostMapping("/admin34/uploadProcess.do")
-	public String uploadProcess(HttpServletRequest req, Model model, CommonDTO commonDTO) {		
+	public String uploadProcess(HttpServletRequest req, Model model, CommonDTO commonDTO) {
+		
+		//행 읽기에 실패한 경우 저장을 위한 List
+	    List<String> rowReadFails = new ArrayList<>();
+	    
 		try {
 			//파일업로드
 			String uploadDir = ResourceUtils
@@ -86,11 +91,13 @@ public class MainController {
 		    Calendar calendar = Calendar.getInstance();
 		    String strToday = sdf.format(calendar.getTime());
 		    Workbook workbook = new XSSFWorkbook(uploadDir+ File.separator +savedFileName);
+		    //엑셀 업로드 완료 후 내용을 읽었다면 파일 삭제
+		    MyFunctions.deleteFile(uploadDir, savedFileName);
 		    
 /**
 롤재단 => getSheetAt(4)
 날짜 번호 상호 지종 규격 비고 톤수 사이즈및수량 제지 실출고 품명 도착지 번호 /까지/ 1호 2호 자차 용차 용차번호												
-0    1    2    3    4    5    6     7           8     9     10   11     12   /까지/ 13  14  15
+0    1  2   3   4   5   6      7      8    9   10   11    12   /까지/ 13  14  15
 */		    
 		    //롤제단
 		    Sheet worksSheet = workbook.getSheetAt(4);
@@ -118,7 +125,15 @@ public class MainController {
 			    		col09 = row.getCell(9).getStringCellValue();
 			    	}
 			    	
-			    	String col10 = row.getCell(10).getStringCellValue();
+			    	//품명
+			    	String col10;
+			    	if(row.getCell(10).getCellType()==CellType.NUMERIC) {
+			    		col10 = Double.toString(row.getCell(10).getNumericCellValue());
+			    	}
+			    	else {
+			    		col10 = row.getCell(10).getStringCellValue();
+			    	}
+			    	
 			    	String col11 = row.getCell(11).getStringCellValue();
 			    	String col12 = row.getCell(12).getStringCellValue();//번호
 	//		    	String col13 = Boolean.toString(row.getCell(13).getBooleanCellValue());
@@ -154,7 +169,9 @@ public class MainController {
 			    		dao.insert(commonDTO);
 		    	}
 		    	catch (Exception e) {
+		    		rowReadFails.add(i+"번째 행에서 등록 실패(롤재단)");
 					System.out.println(i+"번째 행에서 예외발생(롤재단)");
+					//e.printStackTrace();
 				}
 		    }
 
@@ -178,7 +195,16 @@ public class MainController {
 			    	String col05 = Double.toString(row.getCell(5).getNumericCellValue());//연수
 			    	String col06 = row.getCell(6).getStringCellValue();
 			    	String col07 = row.getCell(7).getStringCellValue();
-			    	String col08 = row.getCell(8).getStringCellValue();
+			    	
+			    	String col08;
+			    	if(row.getCell(8).getCellType()==CellType.NUMERIC) {
+			    		col08 = Double.toString(row.getCell(8).getNumericCellValue());
+			    	}
+			    	else {
+			    		col08 = row.getCell(8).getStringCellValue();
+			    	}
+//			    	String col08 = row.getCell(8).getStringCellValue();
+			    	
 			    	String col09 = row.getCell(9).getStringCellValue();
 	//		    	String col10 = Boolean.toString(row.getCell(10).getBooleanCellValue());
 	//		    	String col11 = Double.toString(row.getCell(11).getNumericCellValue());
@@ -211,7 +237,9 @@ public class MainController {
 			    		dao.insert(commonDTO);
 		    	}
 		    	catch (Exception e) {
+		    		rowReadFails.add(i+"번째 행에서 등록 실패(길로틴)");
 					System.out.println(i+"번째 행에서 예외발생(길로틴)");
+					//e.printStackTrace();
 				}
 		    }
 		    		    
@@ -219,14 +247,17 @@ public class MainController {
 		    //워크북 자원해제
 		    workbook.close();
 
-		    //모든 등록이 완료되었다면 엑셀 파일 삭제
-		    MyFunctions.deleteFile(uploadDir, savedFileName);
+		    //DB 등록 성공
+		    model.addAttribute("insertResult", "success");
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("업로드 실패 or Excel파일 읽기 실패");
+			//DB 등록 실패
+			model.addAttribute("insertResult", "fail");
 		}
-
+		
+		model.addAttribute("rowReadFails", rowReadFails);
 		return "sbadmin/print01";
 	}	
 	

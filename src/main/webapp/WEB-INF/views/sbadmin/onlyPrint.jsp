@@ -37,7 +37,7 @@ body {
 		height: 297mm;
 	}
 	.page {
-		margin: 0;
+		margin: 0px;
 		border: initial;
 		width: initial;
 		min-height: initial;

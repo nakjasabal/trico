@@ -74,10 +74,24 @@ function validateForm(form) {
 	    		<li>원본파일명 => ${originalFileName}</li>
 	    		<li>저장된파일명 => ${savedFileName}</li>
 	    	</ul>
-	    	<h4>
-	    		업로드 한 파일이 DB에 등록되었습니다. '출고목록'으로 이동해주세요.
-	    	</h4>
+	    	<c:choose>
+		    	<c:when test="${insertResult eq 'success'}">
+			    	<h4>
+			    		업로드 한 파일이 DB에 등록되었습니다. '출고목록'으로 이동해주세요.
+			    	</h4>	    	
+		    	</c:when>
+		    	<c:otherwise>
+		    		<h4 style="color:red;">
+			    		DB에 등록 중 오류가 발생하였습니다. Excel파일을 다시한번 확인해주세요. 
+			    	</h4>
+		    	</c:otherwise>
+	    	</c:choose>
 	    </c:if>
+	    <ul>
+		    <c:forEach items="${rowReadFails}" var="row">
+		    	<li>${row}</li>
+		    </c:forEach>
+	    </ul>
 	    <c:if test="${result eq false }">
 	    	업로드 준비중입니다.
 	    </c:if>
