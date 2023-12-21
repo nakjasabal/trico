@@ -35,11 +35,17 @@ span#red{color:red;}
 		
 		
 	<ul class="pagination justify-content-end" style="margin:0 0 10px 0;">
-		<li class="page-item"><a class="page-link" href="#">Prev</a></li>
+		<!-- <li class="page-item"><a class="page-link" href="#">Prev</a></li> -->
 		<c:forEach items="${flagList}" var="item" varStatus="loop">
-			<li class="page-item"><a class="page-link" href="?flagNum=${item.flag}">${loop.count}</a></li>	
+			<c:if test="${((empty param.flagNum or param.flagNum=='') and loop.count eq 1) or item.flag eq param.flagNum}" var="result">
+				<c:set var="active" value="active" />
+			</c:if>
+			<c:if test="${not result}">
+				<c:set var="active" value="" />
+			</c:if>
+			<li class="page-item ${active}"><a class="page-link" href="?flagNum=${item.flag}">${loop.count}</a></li>	
 		</c:forEach>
-		<li class="page-item"><a class="page-link" href="#">Next</a></li>
+		<!-- <li class="page-item"><a class="page-link" href="#">Next</a></li> -->
 	</ul>
 <script>
 function printOpen(idx) {

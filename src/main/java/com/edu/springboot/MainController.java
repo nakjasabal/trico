@@ -95,62 +95,67 @@ public class MainController {
 		    //롤제단
 		    Sheet worksSheet = workbook.getSheetAt(4);
 		    for(int i=1 ; i<worksSheet.getPhysicalNumberOfRows() ; i++) {
-		    	//레코드
-		    	Row row = worksSheet.getRow(i);
-		    	//데이터정리
-		    	String col00 = row.getCell(0).getStringCellValue();//날짜
-		    	String col01 = row.getCell(1).getStringCellValue();//번호
-		    	String col02 = row.getCell(2).getStringCellValue();//상호
-		    	String col03 = row.getCell(3).getStringCellValue();//지종
-		    	String col04 = row.getCell(4).getStringCellValue();//규격
-		    	String col05 = row.getCell(5).getStringCellValue();//비고
-		    	String col06 = Double.toString(row.getCell(6).getNumericCellValue());//톤수(실수)		    	
-		    	String col07 = row.getCell(7).getStringCellValue();
-		    	String col08 = row.getCell(8).getStringCellValue();
-		    	
-		    	String col09;//실출고(숫자 or 텍스트)
-		    	//System.out.println(col00+" 타입=>"+row.getCell(9).getCellType());
-		    	if(row.getCell(9).getCellType()==CellType.NUMERIC) {
-		    		col09 = Double.toString(row.getCell(9).getNumericCellValue());
+		    	try {
+			    	//레코드
+			    	Row row = worksSheet.getRow(i);
+			    	//데이터정리
+			    	String col00 = row.getCell(0).getStringCellValue();//날짜
+			    	String col01 = row.getCell(1).getStringCellValue();//번호
+			    	String col02 = row.getCell(2).getStringCellValue();//상호
+			    	String col03 = row.getCell(3).getStringCellValue();//지종
+			    	String col04 = row.getCell(4).getStringCellValue();//규격
+			    	String col05 = row.getCell(5).getStringCellValue();//비고
+			    	String col06 = Double.toString(row.getCell(6).getNumericCellValue());//톤수(실수)		    	
+			    	String col07 = row.getCell(7).getStringCellValue();
+			    	String col08 = row.getCell(8).getStringCellValue();
+			    	
+			    	String col09;//실출고(숫자 or 텍스트)
+			    	//System.out.println(col00+" 타입=>"+row.getCell(9).getCellType());
+			    	if(row.getCell(9).getCellType()==CellType.NUMERIC) {
+			    		col09 = Double.toString(row.getCell(9).getNumericCellValue());
+			    	}
+			    	else {
+			    		col09 = row.getCell(9).getStringCellValue();
+			    	}
+			    	
+			    	String col10 = row.getCell(10).getStringCellValue();
+			    	String col11 = row.getCell(11).getStringCellValue();
+			    	String col12 = row.getCell(12).getStringCellValue();//번호
+	//		    	String col13 = Boolean.toString(row.getCell(13).getBooleanCellValue());
+	//		    	String col14 = Boolean.toString(row.getCell(14).getBooleanCellValue());
+	//		    	String col15 = Double.toString(row.getCell(15).getNumericCellValue());
+			    	
+			    	//출력용 문자열 만들기
+	//		    	sb.append(col00+"="+col01+"="+col02+"="+col03+"="+col04+"="+col05+"="
+	//		    			+col06+"="+col07+"="+col08+"="+col09+"="+col10+"="+col11+"="
+	//		    			+col12+"="+col13+"="+col14+"="+col15+"<br>");
+			    	
+			    	//DB저장을 위해 DTO에 저장
+			    	commonDTO.setCol00(col00);
+			    	commonDTO.setCol01(col01);
+			    	commonDTO.setCol02(col02);
+			    	commonDTO.setCol03(col03);
+			    	commonDTO.setCol04(col04);
+			    	commonDTO.setCol05(col05);
+			    	commonDTO.setCol06(col06);
+			    	commonDTO.setCol07(col07);
+			    	commonDTO.setCol08(col08);
+			    	commonDTO.setCol09(col09);
+			    	commonDTO.setCol10(col10);
+			    	commonDTO.setCol11(col11);
+			    	commonDTO.setCol12(col12);
+	//		    	commonDTO.setCol13(col13);
+	//		    	commonDTO.setCol14(col14);
+			    	commonDTO.setFlag(strToday);
+			    	commonDTO.setGubun("roll");
+			    	
+			    	//insert
+			    	if(!col01.equals("") && !col02.equals(""))
+			    		dao.insert(commonDTO);
 		    	}
-		    	else {
-		    		col09 = row.getCell(9).getStringCellValue();
-		    	}
-		    	
-		    	String col10 = row.getCell(10).getStringCellValue();
-		    	String col11 = row.getCell(11).getStringCellValue();
-		    	String col12 = row.getCell(12).getStringCellValue();//번호
-//		    	String col13 = Boolean.toString(row.getCell(13).getBooleanCellValue());
-//		    	String col14 = Boolean.toString(row.getCell(14).getBooleanCellValue());
-//		    	String col15 = Double.toString(row.getCell(15).getNumericCellValue());
-		    	
-		    	//출력용 문자열 만들기
-//		    	sb.append(col00+"="+col01+"="+col02+"="+col03+"="+col04+"="+col05+"="
-//		    			+col06+"="+col07+"="+col08+"="+col09+"="+col10+"="+col11+"="
-//		    			+col12+"="+col13+"="+col14+"="+col15+"<br>");
-		    	
-		    	//DB저장을 위해 DTO에 저장
-		    	commonDTO.setCol00(col00);
-		    	commonDTO.setCol01(col01);
-		    	commonDTO.setCol02(col02);
-		    	commonDTO.setCol03(col03);
-		    	commonDTO.setCol04(col04);
-		    	commonDTO.setCol05(col05);
-		    	commonDTO.setCol06(col06);
-		    	commonDTO.setCol07(col07);
-		    	commonDTO.setCol08(col08);
-		    	commonDTO.setCol09(col09);
-		    	commonDTO.setCol10(col10);
-		    	commonDTO.setCol11(col11);
-		    	commonDTO.setCol12(col12);
-//		    	commonDTO.setCol13(col13);
-//		    	commonDTO.setCol14(col14);
-		    	commonDTO.setFlag(strToday);
-		    	commonDTO.setGubun("roll");
-		    	
-		    	//insert
-		    	if(!col01.equals("") && !col02.equals(""))
-		    		dao.insert(commonDTO);
+		    	catch (Exception e) {
+					System.out.println(i+"번째 행에서 예외발생(롤재단)");
+				}
 		    }
 
 /**
@@ -161,58 +166,67 @@ public class MainController {
 		    //길로틴
 		    Sheet worksSheet2 = workbook.getSheetAt(5);
 		    for(int i=1 ; i<worksSheet2.getPhysicalNumberOfRows() ; i++) {
-		    	//레코드
-		    	Row row = worksSheet2.getRow(i);
-		    	//데이터정리
-		    	String col00 = row.getCell(0).getStringCellValue();
-		    	String col01 = row.getCell(1).getStringCellValue();
-		    	String col02 = row.getCell(2).getStringCellValue();
-		    	String col03 = row.getCell(3).getStringCellValue();
-		    	String col04 = row.getCell(4).getStringCellValue();
-		    	String col05 = Double.toString(row.getCell(5).getNumericCellValue());//연수
-		    	String col06 = row.getCell(6).getStringCellValue();
-		    	String col07 = row.getCell(7).getStringCellValue();
-		    	String col08 = row.getCell(8).getStringCellValue();
-		    	String col09 = row.getCell(9).getStringCellValue();
-//		    	String col10 = Boolean.toString(row.getCell(10).getBooleanCellValue());
-//		    	String col11 = Double.toString(row.getCell(11).getNumericCellValue());
-//		    	String col12 = row.getCell(12).getStringCellValue();
-		    	
-		    	//출력용 문자열 만들기
-//		    	sb.append(col00+"="+col01+"="+col02+"="+col03+"="+col04+"="+col05+"="
-//		    			+col06+"="+col07+"="+col08+"="+col09+"="+col10+"="+col11+"="
-//		    			+col12+"<br>");
-		    	
-		    	//DB저장을 위해 DTO에 저장
-		    	commonDTO.setCol00(col00);
-		    	commonDTO.setCol01(col01);
-		    	commonDTO.setCol02(col02);
-		    	commonDTO.setCol03(col03);
-		    	commonDTO.setCol04(col04);
-		    	commonDTO.setCol05(col05);
-		    	commonDTO.setCol06(col06);
-		    	commonDTO.setCol07(col07);
-		    	commonDTO.setCol08(col08);
-		    	commonDTO.setCol09(col09);
-//		    	commonDTO.setCol10(col10);
-//		    	commonDTO.setCol11(col11);
-//		    	commonDTO.setCol12(col12);
-		    	commonDTO.setFlag(strToday);
-		    	commonDTO.setGubun("gil");
-		    	
-		    	//insert 
-		    	if(!col01.equals("") && !col02.equals(""))
-		    		dao.insert(commonDTO);
+		    	try {
+			    	//레코드
+			    	Row row = worksSheet2.getRow(i);
+			    	//데이터정리
+			    	String col00 = row.getCell(0).getStringCellValue();
+			    	String col01 = row.getCell(1).getStringCellValue();
+			    	String col02 = row.getCell(2).getStringCellValue();
+			    	String col03 = row.getCell(3).getStringCellValue();
+			    	String col04 = row.getCell(4).getStringCellValue();
+			    	String col05 = Double.toString(row.getCell(5).getNumericCellValue());//연수
+			    	String col06 = row.getCell(6).getStringCellValue();
+			    	String col07 = row.getCell(7).getStringCellValue();
+			    	String col08 = row.getCell(8).getStringCellValue();
+			    	String col09 = row.getCell(9).getStringCellValue();
+	//		    	String col10 = Boolean.toString(row.getCell(10).getBooleanCellValue());
+	//		    	String col11 = Double.toString(row.getCell(11).getNumericCellValue());
+	//		    	String col12 = row.getCell(12).getStringCellValue();
+			    	
+			    	//출력용 문자열 만들기
+	//		    	sb.append(col00+"="+col01+"="+col02+"="+col03+"="+col04+"="+col05+"="
+	//		    			+col06+"="+col07+"="+col08+"="+col09+"="+col10+"="+col11+"="
+	//		    			+col12+"<br>");
+			    	
+			    	//DB저장을 위해 DTO에 저장
+			    	commonDTO.setCol00(col00);
+			    	commonDTO.setCol01(col01);
+			    	commonDTO.setCol02(col02);
+			    	commonDTO.setCol03(col03);
+			    	commonDTO.setCol04(col04);
+			    	commonDTO.setCol05(col05);
+			    	commonDTO.setCol06(col06);
+			    	commonDTO.setCol07(col07);
+			    	commonDTO.setCol08(col08);
+			    	commonDTO.setCol09(col09);
+	//		    	commonDTO.setCol10(col10);
+	//		    	commonDTO.setCol11(col11);
+	//		    	commonDTO.setCol12(col12);
+			    	commonDTO.setFlag(strToday);
+			    	commonDTO.setGubun("gil");
+			    	
+			    	//insert 
+			    	if(!col01.equals("") && !col02.equals(""))
+			    		dao.insert(commonDTO);
+		    	}
+		    	catch (Exception e) {
+					System.out.println(i+"번째 행에서 예외발생(길로틴)");
+				}
 		    }
-		    
+		    		    
 		    //model.addAttribute("sb", sb);
+		    //워크북 자원해제
 		    workbook.close();
+
+		    //모든 등록이 완료되었다면 엑셀 파일 삭제
+		    MyFunctions.deleteFile(uploadDir, savedFileName);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("업로드 실패 or Excel파일 읽기 실패");
 		}
-		
+
 		return "sbadmin/print01";
 	}	
 	

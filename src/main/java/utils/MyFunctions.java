@@ -36,7 +36,16 @@ public class MyFunctions {
 	    //변경된 파일명을 반환한다. 
 	    return newFileName;
 	}
+	
+	public static void deleteFile(String directory, String filename) {
+		//System.out.println(directory+"=="+filename);
+        File file = new File(directory + File.separator + filename);
+        if (file.exists()) {
+        	//System.out.println("파일삭제");
+            file.delete();
+        }
+        else {
+        	//System.out.println("파일없음");
+        }
+	}
 }
-
-
-
